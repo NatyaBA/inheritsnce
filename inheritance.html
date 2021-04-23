@@ -28,15 +28,10 @@
         else 
             return x;
     }
-    
-    let hours = extra(Math.floor(total / 3600));
-    let minutes = extra(Math.floor(total % 3600 / 60));
-    let seconds = extra(Math.floor(total % 3600 % 60));
-    
 
     class Timer {
         start(total, callback) {
-            timer = setInterval( function() {
+            time = setInterval( function() {
                 let hours = extra(Math.floor(total / 3600));
                 let minutes = extra(Math.floor(total % 3600 / 60));
                 let seconds = extra(Math.floor(total % 3600 % 60));
@@ -46,40 +41,48 @@
                 callback(total);
    
                 if (total == 0) {
-                    clearInterval(timer);
+                    clearInterval(time);
                     alert('Вреня закончилось!')
                 }
                 total--;
-            }, 1000);
+            }, 1000);  
         }
         
         stop(total) {
-            clearInterval(timer);
+            clearInterval(time);
 
-            timer = setInterval(start,1000);
+            time = setInterval(start,1000);
             if (total == 0){ 
-                clearInterval(timer);
+                clearInterval(time);
                 
             }
         }
     }
      
     class new_Timer extends Timer {
-        start(total, new_timer, timer) {     
-            clearInterval(timer);
-
-            new_timer = setInterval(start,1000);
-            if(total == 0){ 
-                clearInterval(new_timer);
+        start(total, callback) {
+            new_time = setInterval( function() {
+                let hours = extra(Math.floor(total / 3600));
+                let minutes = extra(Math.floor(total % 3600 / 60));
+                let seconds = extra(Math.floor(total % 3600 % 60));
+    
+                getId('new_timer').innerHTML = hours + ':' + minutes + ':' +seconds;
                 
-            }
+                callback(total);
+   
+                if (total == 0) {
+                    clearInterval(new_time);
+                    alert('Вреня закончилось!')
+                }
+                total--;
+            }, 1000);  
         }
          
-        stop (total, new_timer) {    
-            clearInterval(timer);
+        stop (total, new_time, time) {    
+            clearInterval(time);
             if(total == 0){ 
-                clearInterval(new_timer);
-                
+                clearInterval(new_time);
+                alert('Вреня закончилось!')
             }
         }
     }
@@ -87,6 +90,7 @@
     let timer = new Timer();
    
     getId('start').addEventListener('click', () => {
+        console.log(timer);
         timer.start(total, (value) => {
             document.getElementById('timer').innerHTML;
         });
@@ -94,19 +98,15 @@
 
     let new_timer = new new_Timer();
     
-    getId('new_timer').innerHTML = hours + ':' + minutes + ':' +seconds;
-    
     getId('stop').addEventListener('click', () => {
-        new_timer.start(total, new_timer, (value) => {
-            console.log(value);
+        new_timer.start(total, (value) => {
+            document.getElementById('new_timer').innerHTML;
         });
     }); 
 
     getId('new_stop').addEventListener('click', () => {
-        new_timer.stop(total, (value) => {
-            console.log(value);
-        });
-    });  
+        new_timer.stop(total, new_time, time);
+    }); 
 
 </script>
 </body>
