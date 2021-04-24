@@ -19,7 +19,9 @@
     let getId = x => document.getElementById(x);
     let total=Number(prompt('Установить таймер в секундах'));
     let new_total=total;  
-    
+    var time;
+    var new_time;
+    var box;
     function extra(x) {
         if (x < 10) {
             x = "0" + x;
@@ -42,20 +44,14 @@
    
                 if (total == 0) {
                     clearInterval(time);
-                    alert('Вреня закончилось!')
+                    alert('Вреня закончилось на первом таймере!')
                 }
                 total--;
             }, 1000);  
         }
         
-        stop(total) {
+        stop(total, time) {
             clearInterval(time);
-
-            time = setInterval(start,1000);
-            if (total == 0){ 
-                clearInterval(time);
-                
-            }
         }
     }
      
@@ -72,18 +68,15 @@
    
                 if (total == 0) {
                     clearInterval(new_time);
-                    alert('Вреня закончилось!')
+                    alert('Вреня закончилось на втором таймере!')
                 }
                 total--;
             }, 1000);  
         }
          
-        stop (total, new_time, time) {    
-            clearInterval(time);
-            if(total == 0){ 
-                clearInterval(new_time);
-                alert('Вреня закончилось!')
-            }
+        stop (total, new_time) {    
+            clearInterval(new_time);
+
         }
     }
    
@@ -102,10 +95,11 @@
         new_timer.start(total, (value) => {
             document.getElementById('new_timer').innerHTML;
         });
+        timer.stop(total, time);
     }); 
 
     getId('new_stop').addEventListener('click', () => {
-        new_timer.stop(total, new_time, time);
+        new_timer.stop(total, new_time);
     }); 
 
 </script>
