@@ -12,6 +12,7 @@
     </form>     
     <p id="new_timer"></p>
     <form action="">
+        <input type="button" id="new_start" value="Start">
         <input type="button" id="new_stop" value="Stop">
     </form>
 
@@ -83,7 +84,6 @@
     let timer = new Timer();
    
     getId('start').addEventListener('click', () => {
-        console.log(timer);
         timer.start(total, (value) => {
             document.getElementById('timer').innerHTML;
         });
@@ -92,10 +92,13 @@
     let new_timer = new new_Timer();
     
     getId('stop').addEventListener('click', () => {
+        timer.stop(total, time);
+    }); 
+
+    getId('new_start').addEventListener('click', () => {
         new_timer.start(total, (value) => {
             document.getElementById('new_timer').innerHTML;
         });
-        timer.stop(total, time);
     }); 
 
     getId('new_stop').addEventListener('click', () => {
