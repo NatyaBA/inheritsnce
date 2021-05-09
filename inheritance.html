@@ -19,11 +19,14 @@
 <script>   
     let getId = x => document.getElementById(x);
     var total=prompt('Установить таймер в секундах'); 
+    var new_total = total;
     var time;
     var new_time;
-    
+
     if (!/^[0-9]+$/.test(total)) {
         alert('Введите таймер в секундах!');
+        total=prompt('Установить таймер в секундах'); 
+        new_total = total;
     }
 
     function extra(x) {
@@ -36,9 +39,10 @@
     }
 
     class Timer {
-        start (callback) {
+        start (total, callback) {
             if (!/^[0-9]+$/.test(total)) {
                     alert('Введите таймер в секундах!');
+                    return;
             }
             else
             time = setInterval ( function() {
@@ -66,24 +70,24 @@
      
     class new_Timer extends Timer {
         start (callback) {
-            if (!/^[0-9]+$/.test(total)) {
+            if (!/^[0-9]+$/.test(new_total)) {
                     alert('Введите таймер в секундах!');
             }
             else
             new_time = setInterval( function() {
-                let hours = extra(Math.floor(total / 3600));
-                let minutes = extra(Math.floor(total % 3600 / 60));
-                let seconds = extra(Math.floor(total % 3600 % 60));
+                let hours = extra(Math.floor(new_total / 3600));
+                let minutes = extra(Math.floor(new_total % 3600 / 60));
+                let seconds = extra(Math.floor(new_total % 3600 % 60));
     
                 getId('new_timer').innerHTML = hours + ':' + minutes + ':' +seconds;
                 
-                callback(total);
+                callback(new_total);
    
-                if (total == 0) {
+                if (new_total == 0) {
                     clearInterval(new_time);
                     alert('Вреня закончилось на втором таймере!');
                 }
-                total--;
+                new_total--;
                 
             }, 1000);  
         }
@@ -97,7 +101,7 @@
     let timer = new Timer();
    
     getId('start').addEventListener('click', () => {
-        timer.start((value) => {
+        timer.start(total, (value) => {
             document.getElementById('timer').innerHTML;
         });
     }); 
